@@ -207,6 +207,7 @@ TEST_CASE("Round a float.") {
  */
 bool all(bool arr[], int n);
 
+
 TEST_CASE("All true.") {
   bool arr1[1] = {true};
   CHECK(all(arr1, 1));

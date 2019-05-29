@@ -46,6 +46,38 @@ int max(int x, int y, int z) {
   return max(x, max(y, z));
 }
 
+/** Max.
+ * Returns the maximum element from the parameters given.
+ * O(?)
+ */
+
+int max(int arr[], int n){
+  int largest= arr[0];
+  for(i=1; i < n; ++=){
+    if(arr[i] > largest){
+      largest = arr[i];
+    }
+  }
+  return largest;
+}
+
+int min(int arr[], int n)
+  int smallest= arr[0];
+    for(i=1; i < n; ++=){
+      if(arr[i] < smallest){
+        smallest = arr[i];
+      }
+    }
+    return smallest;
+  }
+
+  bool all(bool arr[], int n){
+    for()
+  return something;
+  }
+
+
+
 int min(int x, int y) {
   return (x < y) ? x : y;
 }
@@ -61,3 +93,6 @@ int round(double x, char c) {
     return (c == 'd') ? (int)x - 1 : (int)x;
   }
 }
+
+
+bool is_sorted(int arr[], int n);
