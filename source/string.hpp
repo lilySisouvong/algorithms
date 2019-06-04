@@ -6,7 +6,7 @@
 class String {
  private:
   char* array;
-  int length;
+  int Capacity;
 
  public:
   /** Constructors */
@@ -83,14 +83,14 @@ class String {
    * O(?)
    */
   bool compare(char*) const;
-  bool compare(String) const;
+  bool compare(String&) const;
 
   /** concate(char* or String)
    * Concatenates the string with the given character array, or string.
    * O(?)
    */
   void concatenate(char*);
-  void concatenate(String);
+  void concatenate(String&);
 
   /** find(char* or char or String)
    * Returns the index of the first occurrence of the character array, char, or
@@ -99,7 +99,7 @@ class String {
    */
   unsigned int find(char*, int start = 0) const;
   unsigned int find(char, int start = 0) const;
-  unsigned int find(String, int start = 0) const;
+  unsigned int find(String&, int start = 0) const;
 
   /** reverse()
    * Reverses the string in-place.
@@ -231,8 +231,8 @@ TEST_CASE("Erase") {
   CHECK_EQ(s.at(3), 'i');
   s.erase('T');
   CHECK_EQ(s.at(0), 'e');
-  CHECK_EQ(s.at(13), '.');
-  CHECK_THROWS(s.at(15));
+  CHECK_EQ(s.at(13), '3');
+  CHECK_THROWS(s.at(16));
 }
 
 TEST_CASE("Find") {
@@ -259,11 +259,11 @@ TEST_CASE("Find") {
 
 TEST_CASE("Insert") {
   String s;
-  s.insert(0, 'a');
+  s.insert('a', 0);
   CHECK_EQ(s.at(0), 'a');
-  s.insert(-1, 'b');
+  s.insert('b', -1);
   CHECK_EQ(s.at(0), 'b');
-  s.insert(10, 'c');
+  s.insert('c', 10);
   CHECK_EQ(s.at(2), 'c');
   s.insert('d', 1);
   CHECK_EQ(s.at(1), 'd');
@@ -285,7 +285,7 @@ TEST_CASE("Remove") {
   CHECK_EQ(s.at(0), 'e');
   s.remove(1);
   CHECK_EQ(s.at(0), 'e');
-  CHECK_EQ(s.at(1), 's');
+  CHECK_EQ(s.at(1), 't');
 }
 
 TEST_CASE("Reserve") {
@@ -314,7 +314,7 @@ TEST_CASE("Size") {
 
 TEST_CASE("Substr") {
   String s((char*)"abcdef");
-  CHECK(s.substr(1, 3).compare(String((char*)"bc")));
+  CHECK(s.substr(1, 3).compare((char*)"bc"));
 }
 
 TEST_CASE("To Int") {
