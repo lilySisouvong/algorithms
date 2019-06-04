@@ -106,10 +106,13 @@ int frequency(int arr[], int n, int x) {
 }
 
 long sum(int arr[], int n) {
-  long sum = 0;
-  for (int i = 0; i < n; ++i)
-    sum += arr[i];
-  return sum;
+  if (n == 1){
+    return arr[0];
+  }
+
+  else{
+    return arr[0] + sum(arr +1, n -1);
+  }
 }
 
 int index(char str[], char substr[]) {

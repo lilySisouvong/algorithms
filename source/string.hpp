@@ -82,14 +82,22 @@ class String {
    * O(?)
    */
   bool compare(char*) const;
+<<<<<<< HEAD
   bool compare(String) const;
+=======
+  bool compare(String&) const;
+>>>>>>> upstream/master
 
   /** concate(char* or String)
    * Concatenates the string with the given character array, or string.
    * O(?)
    */
   void concatenate(char*);
+<<<<<<< HEAD
   void concatenate(String);
+=======
+  void concatenate(String&);
+>>>>>>> upstream/master
 
   /** find(char* or char or String)
    * Returns the index of the first occurrence of the character array, char, or
@@ -98,7 +106,11 @@ class String {
    */
   unsigned int find(char*, int start = 0) const;
   unsigned int find(char, int start = 0) const;
+<<<<<<< HEAD
   unsigned int find(String, int start = 0) const;
+=======
+  unsigned int find(String&, int start = 0) const;
+>>>>>>> upstream/master
 
   /** reverse()
    * Reverses the string in-place.
@@ -230,8 +242,13 @@ TEST_CASE("Erase") {
   CHECK_EQ(s.at(3), 'i');
   s.erase('T');
   CHECK_EQ(s.at(0), 'e');
+<<<<<<< HEAD
   CHECK_EQ(s.at(13), '.');
   CHECK_THROWS(s.at(15));
+=======
+  CHECK_EQ(s.at(13), '3');
+  CHECK_THROWS(s.at(16));
+>>>>>>> upstream/master
 }
 
 TEST_CASE("Find") {
@@ -258,11 +275,19 @@ TEST_CASE("Find") {
 
 TEST_CASE("Insert") {
   String s;
+<<<<<<< HEAD
   s.insert(0, 'a');
   CHECK_EQ(s.at(0), 'a');
   s.insert(-1, 'b');
   CHECK_EQ(s.at(0), 'b');
   s.insert(10, 'c');
+=======
+  s.insert('a', 0);
+  CHECK_EQ(s.at(0), 'a');
+  s.insert('b', -1);
+  CHECK_EQ(s.at(0), 'b');
+  s.insert('c', 10);
+>>>>>>> upstream/master
   CHECK_EQ(s.at(2), 'c');
   s.insert('d', 1);
   CHECK_EQ(s.at(1), 'd');
@@ -284,7 +309,11 @@ TEST_CASE("Remove") {
   CHECK_EQ(s.at(0), 'e');
   s.remove(1);
   CHECK_EQ(s.at(0), 'e');
+<<<<<<< HEAD
   CHECK_EQ(s.at(1), 's');
+=======
+  CHECK_EQ(s.at(1), 't');
+>>>>>>> upstream/master
 }
 
 TEST_CASE("Reserve") {
@@ -313,7 +342,11 @@ TEST_CASE("Size") {
 
 TEST_CASE("Substr") {
   String s((char*)"abcdef");
+<<<<<<< HEAD
   CHECK(s.substr(1, 3).compare(String((char*)"bc")));
+=======
+  CHECK(s.substr(1, 3).compare((char*)"bc"));
+>>>>>>> upstream/master
 }
 
 TEST_CASE("To Int") {
