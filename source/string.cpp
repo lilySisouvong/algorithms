@@ -1,5 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "string.hpp"
+<<<<<<< HEAD
  
 //default constructor 
 String::String(){
@@ -297,3 +298,5 @@ String::~String(){
   }
 
 };
+=======
+>>>>>>> upstream/master
