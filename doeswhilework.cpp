@@ -17,7 +17,7 @@ else{
 
 
 int main(){
-    std::string x = "hi";
+    std::string x = "hello";
     char array[5] = {'h','e','l','l','o'};
     int Capacity = 5;
     int i = 0;
@@ -27,6 +27,11 @@ int main(){
         i += 1;
     }
     bool make = compare(x,array,Capacity, counter);
-    std::cout<<make<<std::endl;
+    if (make == 0){
+        std::cout<<"nah"<<std::endl;
+    }
+    else{
+        std::cout<<"yuh"<<std::endl;
+    }
     return 0;
 }
