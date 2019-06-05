@@ -16,11 +16,34 @@ void bubble_sort(int* arr, int n) {
     bubble_sort(arr, n - 1);
   }
 }
+void swap(int*y , int* x){
+  int temp;
+  temp = *y;
+  *y = *x;
+  *x = temp;
+}
 
 /** Selection Sort
- * O(?), Omega(?), Theta(?)
+ * O(n^2), Omega(?), Theta(?)
  */
+void selection_sort(int* arr, int n){
+  for (int i = 1; i < n-1 ; ++i){
+    int min= i;
+    for (int j = i + 1; j < n; ++j){
+      if(arr[j] > arr[min]) min = j;
+    }
+    swap (&arr[min],&arr[i]); 
+  }
+}
+
 
 /** Insertion Sort
  * O(?), Omega(?), Theta(?)
  */
+void insertion_sort(int* arr, int n){
+  for (int i = 0; i < n; ++i){
+    for(int j = i; j > 0 && (arr[j]< arr[j-1]);--j){
+      swap(&arr[j], &arr[j-1]);
+    }
+  }
+}
