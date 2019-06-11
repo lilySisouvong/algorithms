@@ -82,3 +82,11 @@ void mergesort(int* arr, int n) {
     merge(arr, n, n / 2);
   }
 }
+
+void quicksort(int* arr, int lo, int hi){
+  int i = lo+1;
+  int j = hi;
+  while (arr[i] < arr[lo]){
+    
+  }
+}
