@@ -6,7 +6,11 @@
 class String {
  private:
   char* array;
+<<<<<<< HEAD
   int Capacity;
+=======
+  unsigned int _capacity;
+>>>>>>> upstream/master
 
  public:
   /** Constructors */
