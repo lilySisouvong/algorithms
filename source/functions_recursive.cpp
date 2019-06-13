@@ -9,10 +9,21 @@ bool prime(int n) {
   return r_prime(n, n / 2);
 }
 
+//T(n) = T(n-1) + T(n-2) if there are two t's you can't solve by unrolling so you have to assume
+//T(n) < 2T(n-1)
 long fibonacci(int n) {
   return (n <= 1) ? n : fibonacci(n - 1) + fibonacci(n - 2);
 }
 
+//T(n) = 1 + T(n-1); T(0) = 1
+//T(n-1) = 1 + T(n-2)
+//T(n) = 1 + (1 + T(n-2))
+//T(n-2)= 1+ T(n-3)
+//T(n) = 1 + (1+(1+T(n-3)))
+// = 3+ T(n-3)
+// = k + T(n-k)
+// k = n
+//T(n) = n + 1 => O(n)
 long factorial(int n) {
   return (!n) ? 1 : n * factorial(n - 1);
 }
@@ -51,7 +62,8 @@ int strlen(char* string) {
     ++length;
   return length;
 }
-
+//removing the statements that are coutted
+// 
 bool exact_match(char* string, char* substring) {
   std::cout << "STR: " << string << " SUB: " << substring << std::endl;
   if (!string[0] || !substring[0]) {
