@@ -1,4 +1,3 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "functions.hpp"
 
 bool r_prime(int n, int k) {
@@ -62,6 +61,7 @@ int strlen(char* string) {
     ++length;
   return length;
 }
+<<<<<<< HEAD:source/functions_recursive.cpp
 //removing the statements that are coutted
 // 
 bool exact_match(char* string, char* substring) {
@@ -71,8 +71,12 @@ bool exact_match(char* string, char* substring) {
     return string[0] == substring[0];
   }
   return (string[0] == substring[0]) && exact_match(string + 1, substring + 1);
-}
+=======
 
+bool exact_match(char* a, char* b) {
+  return (!b[0]) ? true : a[0] == b[0] && exact_match(a + 1, b + 1);
+>>>>>>> upstream/master:source/Functions/functions_recursive.cpp
+}
 int r_index(char str[], char substr[]) {
   if (!substr[0] || exact_match(str, substr))
     return 0;
@@ -83,7 +87,6 @@ int r_index(char str[], char substr[]) {
 
 int index(char* str, char* substr) {
   int idx = r_index(str, substr);
-  std::cout << idx << " " << strlen(str) << std::endl;
   return idx <= strlen(str) ? idx : -1;
 }
 
