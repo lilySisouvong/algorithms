@@ -1,3 +1,4 @@
+<<<<<<< HEAD:source/String/string.cpp
 #include "string.hpp"
 <<<<<<< HEAD:source/string.cpp
 <<<<<<< HEAD
@@ -316,6 +317,9 @@ String String::substr(int x, int y) const{
 
 =======
 =======
+=======
+#include "String.hpp"
+>>>>>>> upstream/master:source/String/String.cpp
 #include "../Functions/functions.hpp"
 >>>>>>> upstream/master:source/String/string.cpp
 
