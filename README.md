@@ -54,8 +54,8 @@ Welcome to CSC 212, Data Structures and Algorithms!
 | Wed, 6/19 | 4      | [CSLL / DLL / CDLL](docs/notes/linear.html)                          | [OpenDSA 9.6][odsa9], [CS50 DLL](https://youtu.be/FHMPswJDCvU)                                                                         |                                            |
 | Thu, 6/20 | 4      | [Stacks](docs/notes/linear.html)                                     | [OpenDSA 9.8, 9.9][odsa9], [CS50 Stacks](https://youtu.be/hVsNqhEthOk)                                                                 | [A05: Djikstra's Two Stack Algorithm][a05] |
 | Tue, 6/25 | 5      | [Queues](docs/notes/linear.html)                                     | [OpenDSA 9.12, 9.13][odsa9], [CS50 Queues](https://youtu.be/3TmUv1uS92s)                                                               |                                            |
-| Wed, 6/26 | 5      | Trees / Binary Trees                                                 | [OpenDSA 12.1-12.13][odsa12]                                                                                                           |                                            |
-| Thu, 6/27 | 5      | Binary Trees                                                         | [OpenDSA 12.14-12.16][odsa12]                                                                                                          | A06                                        |
+| Wed, 6/26 | 5      | [Trees / Binary Trees](docs/notes/trees.html)                        | [OpenDSA 12.1-12.13][odsa12]                                                                                                           |                                            |
+| Thu, 6/27 | 5      | [Binary Trees](docs/notes/trees.html#/2)                             | [OpenDSA 12.14-12.16][odsa12]                                                                                                          | A06                                        |
 | Tue, 7/2  | 6      | Heaps                                                                | [OpenDSA 12.17][odsa12]                                                                                                                |                                            |
 | Wed, 7/3  | 6      | Heap Sort                                                            |                                                                                                                                        |                                            |
 | Fri, 7/5  | 6      | 2-3 Tree                                                             |                                                                                                                                        | A07                                        |
@@ -90,7 +90,7 @@ Welcome to CSC 212, Data Structures and Algorithms!
 3. Configure your new repository.
    1. CD into the freshly cloned repository (`cd algorithms`)
    2. [Configure a remote for your fork](https://help.github.com/en/articles/configuring-a-remote-for-a-fork)
-      1. Run `git add remote upstream https://github.com/thoward27/algorithms.git`
+      1. Run `git remote add upstream https://github.com/thoward27/algorithms.git`
    3. Make sure when you run `git remote -v` you see `upstream` with a link to my copy of `algorithms` (`https://github.com/thoward27/algorithms.git`)
 4. Procedure for doing classwork.
    1. Ensure that you've committed all of your work to your current branch (**which should not be master**)

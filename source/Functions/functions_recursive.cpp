@@ -222,3 +222,5 @@ long sum(int arr[], int n) {
 int log(int base, int num) {
   return (num == 1) ? 0 : 1 + log(base, num / base);
 }
+
+int binsearch(int* arr, int n, int key) {}
