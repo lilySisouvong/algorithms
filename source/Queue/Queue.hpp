@@ -1,5 +1,11 @@
 #pragma once
+<<<<<<< HEAD:source/Linear/Queue.hpp
 #include "LinkedList.hpp"
+=======
+
+#include "../LinkedList/LinkedList.hpp"
+
+>>>>>>> upstream/master:source/Queue/Queue.hpp
 /** Queue
  * A container class that stores data using a FIFO
  * (first in, first out) scheme.
