@@ -46,11 +46,12 @@ class MinHeap {
   MinHeap(unsigned int cap);
   ~MinHeap();
 
+
   /** push(int data)
    * Inserts data into the MinHeap such that the heap order property is
    * preserved.
    * Assumes duplicate elements will not be pushed.
-   * Throws an error if the heap is full.
+   * Don't throw 
    */
   void push(int data);
 
