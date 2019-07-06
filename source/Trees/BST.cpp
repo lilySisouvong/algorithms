@@ -46,51 +46,6 @@ bool BST::search(int data) {
 }
 
 Node* BST::remove(int data, Node* n) {
-<<<<<<< HEAD
-  Node* p= n; 
-  if (height(p)==0){
-    delete p;
-    //set parent ptr to Null
-  }
-  else if((p->left && !p->right)){
-    if(!p->left->left){
-      p->data= p->left->data;
-      p->left = nullptr;
-    }
-    else{
-
-    }
-  } 
-  else if ((p->right && !p->left)){
-
-  }
-  else if(){
-
-  }
-  else if (search(data,n)){
-    while(p){
-      if (p->data < data){
-        p = p->right;
-      }
-      else if (p->data == data){
-        delete p;
-      }
-      else{
-        p = p->left;
-      }
-    }
-  }
-  else{
-    throw "Not in tree!";
-    }
-  }
-
-
-
-void BST::remove(int data) {
-  Node* p= root; 
-  remove(data,p);
-=======
   if (!n) {
     return nullptr;
 
@@ -123,7 +78,6 @@ void BST::remove(int data) {
     n->right = remove(n->data, n->right);
   }
   return n;
->>>>>>> upstream/master
 }
 
 void BST::remove(int data) {
@@ -157,33 +111,6 @@ void BST::clear() {
   root = nullptr;
 }
 
-<<<<<<< HEAD
-void BST::preorder(Node* n, std::ostream& oss) {
-  Node* p = n;
-  if(!n) return;
-  oss<<n<<", ";
-  preorder(n->left, oss);
-  preorder(n->right, oss);
-}
-
-void BST::preorder(std::ostream& oss){
-  Node* p = root;
-  preorder(p, oss);
-  oss<<p<<", ";
-}
-
-void BST::inorder(Node* n, std::ostream& oss) {
-  Node* p = n;
-  if(!n) return;
-  oss<<n<<", ";
-  inorder(n->left, oss);
-  inorder(n->right, oss);
-}
-
-void BST::inorder(std::ostream& oss) {
-    Node* p = root;
-    
-=======
 void BST::preorder(Node* n, std::ostream& oss, bool dups) {
   if (!n)
     return;
@@ -220,7 +147,6 @@ void BST::inorder(Node* n, std::ostream& oss, bool dups) {
 void BST::inorder(std::ostream& oss, bool dups) {
   inorder(root, oss, dups);
   oss << std::endl;
->>>>>>> upstream/master
 }
 
 void BST::postorder(Node* n, std::ostream& oss, bool dups) {

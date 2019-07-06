@@ -16,6 +16,20 @@ void RBTree::clear(Node* n){
     
 }
 
+Node* RBTree::fix(Node* temp){
+    if(temp->left->color==1 && temp->left->left->color==1){
+        rotateRight(temp);
+    }
+    if(temp->right->color==1 && temp->left->color == 0){
+        rotateLeft(temp);
+    }
+    if(temp->left->color==1 && temp->right->color==1){
+        flipColors(temp);
+
+    }
+    return temp;
+}
+
 Node* RBTree::insert(int data, Node* n){
     if(!n){
         return new Node(data);
@@ -35,12 +49,39 @@ Node* RBTree::insert(int data, Node* n){
    * Does nothing if the data is already in the tree.
    */
 void RBTree::insert(int data){
+    Node* p = new Node(data);
     if(root == nullptr){
         root = new Node(data);
-        
     }
    root = insert(data, root);
-    fix(root);
+   fix(root);
+}
+
+void swap(int* y, int* x) {
+  int temp;
+  temp = *y;
+  *y = *x;
+  *x = temp;
+}
+
+
+Node* RBTree::remove(int data, Node* n){
+    Node* temp = n;
+    if(n->data == data){
+        n = n->right;
+        while(n->left){
+            n = n->left;
+        }
+        swap(temp->data, n->data);
+        removeMin(temp->right);
+        return n;
+    }
+    else if(data < n->data){
+        remove(data,n->left);
+    }
+    else if(data > n->data){
+        remove(data, n->right);
+    }
 }
 
 /** height()
@@ -63,7 +104,7 @@ void RBTree::clear(){
    * traversal.
    */
 void RBTree::preorder(std::ostream &oss){
-
+    
 }
 
 /** inorder()
@@ -83,8 +124,24 @@ void RBTree::postorder(std::ostream &oss){
 }
 
 void RBTree::deleteMax(){
-
+    root = deleteMax(root);
+    root->color = 0;
 }
+
+Node* RBTree::deleteMax(Node* temp){
+    if(temp->left && temp->left->color){
+        temp = rotateRight(temp);
+    }
+    if(temp->right == nullptr){
+        delete temp;
+        return nullptr;
+    }
+    if(temp->right && temp->right->color!= 1 && temp->right->left && temp->right->left->color != 1){
+        
+
+    }
+}
+
 
 void RBTree::deleteMin(){
 

@@ -3,28 +3,27 @@
 MinHeap::MinHeap(unsigned int cap){
     array = new int[cap];
     capacity = cap-1;
-    size = cap-1;
+    size = 0;
 }
 
 MinHeap::~MinHeap(){
     delete[] array;
 }
 
-void doubleSpace(int capacity){
-    capacity= capacity * 2;
-    int array2[capacity];
-    for(int i = 1; i< capacity; ++i){
-        array2[i] = array[i];
-    }
-}
 
 void MinHeap::push(int data){
     if(size == capacity){
-        doubleSpace(capacity);
-    }
-
-
-
+        int array2[capacity*2];
+        for(int i = 1; i < size; ++i){
+            array2[i] = array[i];
+        }
+        capacity *= 2;
+        delete[] array;
+        array = array2;
+        }
+    array[size] = data;
+    size++;
+    swim();
 }
 
 int MinHeap::count(){ 
@@ -62,9 +61,19 @@ void MinHeap::erase(int data){
 void MinHeap::print(std::ostream &oss){
 }
 
-void swim(){
-    for()
-    
+void swap(int* y, int* x) {
+  int temp;
+  temp = *y;
+  *y = *x;
+  *x = temp;
+}
+
+void MinHeap::swim(){ 
+    int temp = size;
+    while(array[temp] < array[temp/2] && temp !=1){
+        swap(&array[temp], &array[temp/2]);
+        temp = temp / 2;
+    }
 }
 void sink(int i){
 

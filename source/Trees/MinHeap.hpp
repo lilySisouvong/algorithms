@@ -11,6 +11,7 @@ class MinHeap {
   unsigned int capacity;
   int size;
 
+
   /** swim()
    * Restores the heap order property after an element is pushed. Assumes the
    * new element has been pushed at the end of the heap array (right-most node
@@ -46,15 +47,10 @@ class MinHeap {
   MinHeap(unsigned int cap = 16);
   ~MinHeap();
 
-
   /** push(int data)
    * Inserts data into the MinHeap such that the heap order property is
    * preserved.
    * Assumes duplicate elements will not be pushed.
-<<<<<<< HEAD
-   * Don't throw 
-=======
->>>>>>> upstream/master
    */
   void push(int data);
 
