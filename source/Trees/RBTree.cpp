@@ -1,148 +1,316 @@
 #include "RBTree.hpp"
 
-RBTree::~RBTree(){
-   clear(root);
+/** Author's Note
+ * A large portion of this implementation is derived from Java source code
+ * present in Robert Sedgewick's slides on Left-Leaning Red Black Trees,
+ * (Avaialable here: https://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf)
+ * that has been translated into C++ and tweaked for the purposes of this
+ * course/
+ */
+
+/** Destructor */
+RBTree::~RBTree() {
+  clear();
+  root = nullptr;
 }
 
-bool RBTree::search(int data, Node* n){
+/** RotateRight()
+ * A method to rotate nodes in a RB tree in order to maintain balance
+ */
+Node* RBTree::rotateRight(Node* node) {
+  Node* temp = node->left;
+  node->left = temp->right;
+  temp->right = node;
+  temp->color = temp->right->color;
+  temp->right->color = 1;
+  return temp;
+}
+
+/** RotateLeft()
+ * A method to rotate nodes in a RB tree in order to maintain balance
+ */
+Node* RBTree::rotateLeft(Node* node) {
+  Node* temp = node->right;
+  node->right = temp->left;
+  temp->left = node;
+  temp->color = temp->left->color;
+  temp->left->color = 1;
+  return temp;
+}
+
+/** FlipColors()
+ * A method to flip the colors of a nodes links in order to maintain balance
+ */
+void RBTree::flipColors(Node* node) {
+  node->color = !node->color;
+  node->left->color = !node->left->color;
+  node->right->color = !node->right->color;
+}
+
+/** Insert()
+ * A method to insert keys into the trees
+ */
+Node* RBTree::insert(int data, Node* temp) {
+  if (!temp) {
+    return new Node(data, 1);
+  }
+
+  // recurse to bottom
+  if (data < temp->data) {
+    temp->left = insert(data, temp->left);
+  } else if (data > temp->data) {
+    temp->right = insert(data, temp->right);
+  }
+
+  return fix(temp);
+}
+
+void RBTree::insert(int data) {
+  root = root ? insert(data, root) : new Node(data, 0);
+}
+
+/** Search()
+ * A method to search a RBTree for a given key
+ */
+bool RBTree::search(int data, Node* n) {
+  if (!n)
+    return false;
+  else if (data == n->data)
     return true;
+  else if (data < n->data)
+    return search(data, n->left);
+  else
+    return search(data, n->right);
 }
 
-Node* RBTree::remove(int data, Node* n){
-    return root;
+/** Fix()
+ * A method to fix the tree
+ */
+Node* RBTree::fix(Node* temp) {
+  if (temp->right && temp->right->color) {
+    temp = rotateLeft(temp);
+  }
+
+  if (temp->left && temp->left->color && temp->left->left &&
+      temp->left->left->color) {
+    temp = rotateRight(temp);
+  }
+
+  if (temp->left && temp->right && temp->left->color && temp->right->color) {
+    flipColors(temp);
+  }
+
+  return temp;
 }
 
-void RBTree::clear(Node* n){
-    
+/** moveRedLeft()
+ * A method to aid in deleting a key
+ */
+Node* RBTree::moveRedLeft(Node* temp) {
+  flipColors(temp);
+  if (temp->right->left && temp->right->left->color) {
+    temp->right = rotateRight(temp->right);
+    temp = rotateLeft(temp);
+    flipColors(temp);
+  }
+  return temp;
 }
 
-Node* RBTree::fix(Node* temp){
-    if(temp->left->color==1 && temp->left->left->color==1){
-        rotateRight(temp);
+/** moveRedRight()
+ * A method to aid in deleting a key
+ */
+Node* RBTree::moveRedRight(Node* temp) {
+  flipColors(temp);
+  if (temp->left->left && temp->left->left->color) {
+    temp = rotateRight(temp);
+    flipColors(temp);
+  }
+  return temp;
+}
+
+/** Delete the tree form the root */
+void RBTree::deleteMax() {
+  root = deleteMax(root);
+  root->color = 0;
+}
+
+/** DeleteMax()
+ * A method to aid in deleteing a key
+ */
+Node* RBTree::deleteMax(Node* temp) {
+  if (temp->left && temp->left->color) {
+    temp = rotateRight(temp);
+  }
+
+  if (temp->right == nullptr) {
+    // delete temp;
+    return nullptr;
+  }
+
+  if (temp->right && !temp->right->color && temp->right->left != nullptr &&
+      !temp->right->left->color) {
+    temp = moveRedRight(temp);
+  }
+
+  temp->left = deleteMax(temp->left);
+  return fix(temp);
+}
+
+/** Delete the tree form the root */
+void RBTree::deleteMin() {
+  root = deleteMin(root, 1);
+  // TODO: nullptr->color
+  root->color = 0;
+}
+
+/** DeleteMax()
+ * A method to aid in deleteing a key
+ */
+Node* RBTree::deleteMin(Node* temp, bool first = 1) {
+  if (first) {
+    deleteMin(temp->right, 0);
+    return fix(temp);
+  }
+
+  if (temp->left == nullptr) {
+    // delete temp;
+    return nullptr;
+  }
+
+  if (temp->left && !temp->left->color && temp->left->left &&
+      !temp->left->left->color) {
+    temp = moveRedLeft(temp);
+  }
+
+  temp->left = deleteMin(temp->left, 0);
+  return fix(temp);
+}
+
+/** Min()
+ * A method to find the successor to a node, aids in deletion
+ */
+int RBTree::min(Node* subtree, bool first = 1) {
+  if (first) {
+    if (subtree->right != nullptr)
+      return min(subtree->right, 0);
+    else
+      return subtree->left->data;
+  }
+  if (subtree->left == nullptr) {
+    return subtree->data;
+  }
+  return min(subtree->left, 0);
+}
+
+/** Deletekey()
+ * Delete a key in the tree with the given key
+ */
+Node* RBTree::remove(int data, Node* temp) {
+  int comparison;
+  if (temp->data == data) {
+    comparison = 0;
+  } else if (temp->data < data) {
+    comparison = 1;
+  } else {
+    comparison = -1;
+  }
+
+  if (comparison < 0) {
+    if (temp->left && !temp->left->color && temp->left->left &&
+        !temp->left->left->color) {
+      temp = moveRedLeft(temp);
     }
-    if(temp->right->color==1 && temp->left->color == 0){
-        rotateLeft(temp);
-    }
-    if(temp->left->color==1 && temp->right->color==1){
-        flipColors(temp);
+    temp->left = remove(data, temp->left);
+  }
 
+  else {
+    if (temp->left != nullptr && temp->left->color) {
+      temp = rotateRight(temp);
     }
-    return temp;
+    if (comparison == 0 && temp->right == nullptr) {
+      // maybe delete here
+      return nullptr;
+    }
+
+    if (temp->right != nullptr && !temp->right->color &&
+        temp->right->left != nullptr && !temp->right->left->color) {
+      temp = moveRedRight(temp);
+    }
+
+    if (comparison == 0) {
+      temp->right->data = min(temp->right);
+      temp->right = deleteMin(temp->right);
+    } else {
+      temp->right = remove(data, temp->right);
+    }
+  }
+  return fix(temp);
 }
 
-Node* RBTree::insert(int data, Node* n){
-    if(!n){
-        return new Node(data);
-    }
-    else if (data > n->data){
-        n->right = insert(data,n->right);
-    }
-    else if(data < n->data){
-        n->left = insert(data,n->left);
-    }
-    return n;
+void RBTree::preorder(std::ostream& oss) {
+  preorder(root, oss);
+  oss << std::endl;
 }
 
+void RBTree::preorder(Node* n, std::ostream& oss) {
+  if (!n)
+    return;
+  oss << n->data << ", ";
 
-/** insert(int data)
-   * Inserts the given data into the tree.
-   * Does nothing if the data is already in the tree.
-   */
-void RBTree::insert(int data){
-    Node* p = new Node(data);
-    if(root == nullptr){
-        root = new Node(data);
-    }
-   root = insert(data, root);
-   fix(root);
+  preorder(n->left, oss);
+  preorder(n->right, oss);
 }
 
-void swap(int* y, int* x) {
-  int temp;
-  temp = *y;
-  *y = *x;
-  *x = temp;
+void RBTree::inorder(Node* n, std::ostream& oss) {
+  if (!n)
+    return;
+  inorder(n->left, oss);
+
+  oss << n->data << ", ";
+
+  inorder(n->right, oss);
 }
 
-
-Node* RBTree::remove(int data, Node* n){
-    Node* temp = n;
-    if(n->data == data){
-        n = n->right;
-        while(n->left){
-            n = n->left;
-        }
-        swap(temp->data, n->data);
-        removeMin(temp->right);
-        return n;
-    }
-    else if(data < n->data){
-        remove(data,n->left);
-    }
-    else if(data > n->data){
-        remove(data, n->right);
-    }
+void RBTree::inorder(std::ostream& oss) {
+  inorder(root, oss);
+  oss << std::endl;
 }
 
-/** height()
-   * Determines and returns the height of the tree.
-   * Returns -1 if the tree is empty.
-   */
-int RBTree::height(){
-    return 0;
+void RBTree::clear() {
+  clear(root);
 }
 
-/** clear()
-   * Removes every element from the tree.
-   */
-void RBTree::clear(){
-
+void RBTree::clear(Node* n) {
+  if (!n)
+    return;
+  clear(n->left);
+  clear(n->right);
+  delete n;
 }
 
-/** preorder()
-   * Prints the contents of the tree to the ostream using a pre-order
-   * traversal.
-   */
-void RBTree::preorder(std::ostream &oss){
-    
+void RBTree::postorder(Node* n, std::ostream& oss) {
+  if (!n)
+    return;
+  postorder(n->left, oss);
+  postorder(n->right, oss);
+  oss << n->data << ", ";
 }
 
-/** inorder()
-   * Prints the contents of the tree to the ostream using an in-order
-   * traversal.
-   */
-void RBTree::inorder(std::ostream &oss){
-
+void RBTree::postorder(std::ostream& oss) {
+  postorder(root, oss);
+  oss << std::endl;
 }
 
-/** postorder()
-   * Prints the contents of the tree to the ostream using a post-order
-   * traversal.
-   */
-void RBTree::postorder(std::ostream &oss){
-
+int RBTree::height() {
+  return height(root);
 }
 
-void RBTree::deleteMax(){
-    root = deleteMax(root);
-    root->color = 0;
-}
-
-Node* RBTree::deleteMax(Node* temp){
-    if(temp->left && temp->left->color){
-        temp = rotateRight(temp);
-    }
-    if(temp->right == nullptr){
-        delete temp;
-        return nullptr;
-    }
-    if(temp->right && temp->right->color!= 1 && temp->right->left && temp->right->left->color != 1){
-        
-
-    }
-}
-
-
-void RBTree::deleteMin(){
-
+int RBTree::height(Node* n) {
+  if (n == nullptr)
+    return -1;
+  else {
+    int leftsub = height(n->left);
+    int rightsub = height(n->right);
+    return ((leftsub < rightsub) ? rightsub : leftsub) + 1;
+  }
 }
