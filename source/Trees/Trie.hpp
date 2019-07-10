@@ -69,7 +69,7 @@ class Trie {
   void insert(const char* word, int val);
 
   /** count()
-   * Returns the number of word in the Trie.
+   * Returns the number of words in the Trie.
    */
   int count();
 
