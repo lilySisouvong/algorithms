@@ -1,5 +1,5 @@
 CXX=g++-8
-FLAGS=-std=c++11 -Wall -Wextra
+FLAGS=-std=c++11 -Wall -Wextra -fsanitize=address -fsanitize=pointer-compare -fsanitize=leak -fsanitize=undefined
 
 SORTS=bubble insertion selection merge quick tree hybrid
 LISTS=SLL CSLL DLL CDLL
@@ -44,7 +44,11 @@ calculator: calculator.cpp Stack.o SLL.o String.o functions.o
 	$(CXX) $(FLAGS) $^
 	./a.out
 
-%: source/*/%.test.cpp %.o functions.o Stack.o Queue.o $(if $(LIST),$(LIST).o,SLL.o)
+%: source/*/%.test.cpp %.o functions.o Stack.o Queue.o $(if $(LIST),$(LIST).o,SLL.o) String.o
+	$(CXX) $(FLAGS) $^
+	./a.out
+
+lexographic: source/Algorithms/lexographic.test.cpp String.o functions.o Trie.o
 	$(CXX) $(FLAGS) $^
 	./a.out
 
