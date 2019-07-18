@@ -1,4 +1,5 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+<<<<<<< HEAD
 <<<<<<< HEAD:source/String/string.test.cpp
 #endif
 
@@ -139,6 +140,8 @@ class String {
 #include "string.hpp"
 >>>>>>> upstream/master:source/String/string.test.cpp
 =======
+=======
+>>>>>>> upstream/master
 #include "../doctest.h"
 #include "String.hpp"
 >>>>>>> upstream/master:source/String/String.test.cpp
