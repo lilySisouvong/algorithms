@@ -26,6 +26,8 @@ String: String.test.o functions.o
 # Algorithm Dependencies
 twostack.test: twostack.test.o Stack.o SLL.o String.o functions.o
 lexicographic.test: lexicographic.test.o Trie.o String.o functions.o
+hamiltoniancycle.test: Graph.o
+karprabin.test: String.o functions.o
 
 # Complex Depedencies
 .SECONDEXPANSION:
@@ -40,6 +42,7 @@ $(SORTS): sort.test.o $$@.o functions.o BST.o RBTree.o MinHeap.o
 # Algorithms execution rule.
 $(ALGORITHMS): $$@.o 
 	$(CXX) $(FLAGS) $^ && ./a.out
+	make clean
 
 all: $(TARGETS)
 
