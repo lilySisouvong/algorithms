@@ -4,7 +4,8 @@
  * Decides whether the maze is solvable from position (0, 0) by making a call
  * to the recursive function by the same name.
  */
-bool solve_maze(int** maze, int n);
+bool solve_maze(int** maze, int n){
+}
 
 /** solve_maze(int** maze, int n)
  * Recursively decides whether the maze is solvable from the given position
@@ -14,4 +15,6 @@ bool solve_maze(int** maze, int n);
  * once (i.e. not diagonally). A position in the maze is valid to move to
  * only if it contains a 1.
  */
-bool solve_maze(int** maze, int n, int position[2]);
+bool solve_maze(int** maze, int n, int position[2]){
+
+}
